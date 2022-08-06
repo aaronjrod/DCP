@@ -40,9 +40,6 @@ def generate_children(state, board, goalPos):
 
     return children
 
-def sortByF(node):
-    return node.f
-
 # Iterative a_star algo
 # Change to BFS by looking at g over f
 def a_star(board, start, end):

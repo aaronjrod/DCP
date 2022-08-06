@@ -1,0 +1,18 @@
+Dynamic programming:
+- Optimal substructure: If an optimal solution can be constructed from optimal solutions of its subproblems
+- Overlapping subproblems: Tree/stack has multiple of the same problem
+-- Bottom up
+- Memoization: Void of strategy; storing computation results in cache, and retrieving that same information from the cache the next time it's needed 
+
+Encapsulation:
+- The localization of knowledge within a module
+- Because objects encapsulate data and implementation, the user of an object can view the object as a black box that provides services
+- Instance variables and methods can be added, deleted, or changed, but as long as the services provided by the object remain the same
+    code that uses the object can continue to use it without being rewritten. See also instance variable, instance method.
+
+Stable sort: 
+- Sort equal elements in the same order that they appear in the input.
+- Stability is important to preserve order over multiple sorts on the same data set. 
+- Ex. Merge sort (also parallelizable), insertion sort
+
+Comparison sort proof? Cannot be better than O(n*log(n))

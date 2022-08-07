@@ -60,7 +60,7 @@ def a_star(board, start, end):
             else:
                 open_list[child] = child.f
 
-        # Modifying SoW for closed list
+        #Add S to closed list
         board[S.pos[0]][S.pos[1]] = True
         cur_pos = S.pos
     return S

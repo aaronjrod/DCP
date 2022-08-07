@@ -36,7 +36,7 @@ class LinkedList:
             return True
 
         node = self.root
-        while node is not None:
+        while node:
             if node.data == data:
                 if node.next:
                     node.prev.next = node.next
@@ -51,7 +51,7 @@ class LinkedList:
     def __repr__(self):
         node = self.root
         nodes = []
-        while node is not None:
+        while node:
             nodes.append(str(node.data))
             node = node.next
         nodes.append("None")

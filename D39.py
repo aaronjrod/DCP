@@ -1,6 +1,3 @@
-#https://stackoverflow.com/questions/15111285/explain-the-use-of-yields-in-this-game-of-life-implementation
-import itertools
-
 def generate_neighbors(point):
     x, y = point
     neighbors = set()

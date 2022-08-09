@@ -1,24 +1,27 @@
-def is_valid(board):
-    current_queen_row = len(board) - 1
-    current_queen_col = board[-1]
-    # Check if any queens can attack the last queen.
-    for row, col in enumerate(board[:-1]):
-        diff = abs(current_queen_col - col)
-        if diff == 0 or diff == current_queen_row - row:
+def is_valid(board, col_val):
+    # Check row
+    if col_val in board:
+        return False
+    # Check diagonals
+    for i in range(len(board)):
+        if len(board) - i == abs(col_val - board[i]):
             return False
     return True
 
-def n_queens(n, board=[]):
-    if n == len(board):
+# Board: Array representing indices of queens
+def n_queens(n, board = []):
+    # If len(board) == n, then we have a complete n queens solution
+    if len(board) == n:
         return 1
 
     count = 0
-    for col in range(n):
-        board.append(col)
-        if is_valid(board):
-            count += n_queens(n, board)
-        board.pop()
+    # For the next column, consider every row value
+    for col_val in range(n):
+        # Use is_valid to prune state space tree
+        if is_valid(board, col_val):
+            count += n_queens(n, board + [col_val])
+        
     return count
-
-for i in range(4, 10):
+    
+for i in range(10):
     print(n_queens(i))

@@ -3,15 +3,19 @@ def cons(a, b):
         return f(a, b)
     return pair
 
-def car(f):
+def car(pair):
     def left(a, b):
         return a
-    return f(left)
+    return pair(left)
 
-def cdr(f):
+def cdr(pair):
     def right(a, b):
         return b
-    return f(right)
+    return pair(right)
 
 print(car(cons(3, 4)))
 print(cdr(cons(3, 4)))
+
+# Explanation: the pair function takes in an input function, f
+# To get the value of a, define a function that returns a, given a,b as inputs
+# Call pair on this defined function

@@ -16,3 +16,8 @@ Stable sort:
 - Ex. Merge sort (also parallelizable), insertion sort
 
 Comparison sort proof? Cannot be better than O(n*log(n))
+
+Notes:
+- Singleton, factory, and other ways to structure program
+- C++ and C knowledge
+- SQL?

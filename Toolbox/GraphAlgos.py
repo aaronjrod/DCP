@@ -1,15 +1,11 @@
 # Python program to print DFS traversal for complete graph
 class Node():
-    def __init__(self, id, children):
+    def __init__(self, id, children = set()):
         self.id = id
         self.children = children
     
     def add_child(self, node):
-        self.children.append(node)
-    
-    def remove_child(self, node):
-        if node in self.children:
-            self.children.remove(node)
+        self.children.add(node)
     
     def __repr__(self) -> str:
         return str(self.id)
@@ -43,12 +39,13 @@ def bfs(root):
                 continue
             open_list = open_list + [child]
 
-node_list = [Node(x, []) for x in range(6)]
+node_list = [Node(x) for x in range(6)]
 edge_list = [(0, 1), (0, 2), (1, 2), (2, 0), (2, 3), (3, 3), (3, 4)]
 for edge in edge_list:
     parent = node_list[edge[0]]
     child = node_list[edge[1]]
     parent.add_child(child)
+    
 dfs(node_list[0])
 print()
 bfs(node_list[0])

@@ -4,10 +4,6 @@ def min_cost(matrix):
     storage = [[-1 for x in range(k)] for x in range(N)]
     return min_cost_helper(matrix, 0, None, storage)
 
-# House cannot be same color as prev house
-# N by k
-#N: Houe num
-# k: Previous color
 def min_cost_helper(matrix, i, k, storage):
     if i >= len(matrix):
         return 0

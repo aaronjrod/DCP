@@ -4,11 +4,26 @@ Dynamic programming:
 -- Bottom up
 - Memoization: Void of strategy; storing computation results in cache, and retrieving that same information from the cache the next time it's needed 
 
-Encapsulation:
+Encapsulation, OOP:
 - The localization of knowledge within a module
 - Because objects encapsulate data and implementation, the user of an object can view the object as a black box that provides services
 - Instance variables and methods can be added, deleted, or changed, but as long as the services provided by the object remain the same
     code that uses the object can continue to use it without being rewritten. See also instance variable, instance method.
+
+Inhertiance, OOP:
+Enables you to create new classes that reuse, extend, and modify the behavior defined in other classes. 
+The class whose members are inherited is called the base class, and the class that inherits those members is called the derived class.
+A derived class can have only one direct base class. However, inheritance is transitive.
+
+https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/object-oriented/polymorphism
+Polymorphism, OOP:
+At run time, objects of a derived class may be treated as objects of a base class in places such as method parameters and collections or arrays.
+When this polymorphism occurs, the object's declared type is no longer identical to its run-time type.
+Base classes may define and implement virtual methods, and derived classes can override them, which means they provide their own definition and implementation. 
+At run-time, when client code calls the method, the CLR looks up the run-time type of the object, and invokes that override of the virtual method. 
+In your source code you can call a method on a base class, and cause a derived class's version of the method to be executed.
+--> Use a virtual method to invoke the appropriate method on any derived class through a single call to the base class method.
+--> Virtual methods and properties enable derived classes to extend a base class without needing to use the base class implementation of a method. 
 
 Stable sort: 
 - Sort equal elements in the same order that they appear in the input.
@@ -21,3 +36,8 @@ Notes:
 - Singleton, factory, and other ways to structure program
 - C++ and C knowledge
 - SQL?
+
+Graph Algorithms
+- BellmanFord
+- Prim, Kruskal
+- more

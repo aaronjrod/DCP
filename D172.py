@@ -11,19 +11,21 @@
 # The order of the indices does not matter.
 
 def find_concat(s, words):
-    return find_concat_helper(s, words, [])
+    out = []
+    for i in range(len(s)):
+        if find_concat_helper(s[i:], words.copy()):
+            out.append(i)
+    return out
 
-def find_concat_helper(s, words, out):
+def find_concat_helper(s, words):
     if not words:
-        return out
-    if not s:
-        return
+        return True
 
     for i in words:
         if s[:len(i)] == i:
-            words_copy = words.copy()
-            words_copy.remove(i)
-            return find_concat_helper(s[len(i):], words_copy, out + [i])
-    return find_concat_helper(s[1:], words_copy, out + [i])
+            words.remove(i)
+            return find_concat_helper(s[len(i):], words)
+    return False
         
 print(find_concat('dogcatcatcodecatdog', ["cat", "dog"]))
+print(find_concat('barfoobazbitbyte', ["cat", "dog"]))

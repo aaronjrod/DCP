@@ -1,3 +1,25 @@
+# Good morning! Here's your coding interview problem for today.
+
+# This problem was asked by Facebook.
+
+# Given a start val, an end val, and a dictionary of valid vals, find the shortest transformation sequence from start to end such that only one
+#  letter is changed at each step of the sequence, and each transformed val exists in the dictionary. 
+# If there is no possible transformation, return null. Each val in the dictionary have the same length as start and end and is lowercase.
+# For example, given start = "dog", end = "cat", and dictionary = {"dot", "dop", "dat", "cat"}, return ["dog", "dot", "dat", "cat"].
+# Given start = "dog", end = "cat", and dictionary = {"dot", "tod", "dat", "dar"}, return null as there is no possible transformation from dog to cat.
+
+
+# start = "dog"
+# end = "cat"
+# dictionary = {"dot", "dop", "dat", "cat"}
+
+# Strat: Need a function to validate, check if its a valid next step
+# get_children is just get values in dict that are only 1 step away
+# Cost: Number of steps
+# Seems like a search problem to me, existence of cycles
+# Honestly, BFS seems fine to me
+# Heuristic would be closeness to end, which ig could write some kind of hash function to quickly check similarity based on string, but seems to take a long time
+
 import heapq
 
 class Heap:
@@ -15,7 +37,7 @@ class Heap:
         return heapq.heappop(self.heap)[1]
 
 class Node():
-    def __init__(self, val, goal_val, parent=None):
+    def __init__(self, val, goal_pos, parent=None):
         self.parent = parent
         self.val = val
         # g: Distance from start
@@ -23,8 +45,8 @@ class Node():
             self.g = parent.g + 1
         else:
             self.g = 0
-        # h: Heuristic distance to goal
-        self.h = max(abs(val[0] - goal_val[0]), abs(val[1] - goal_val[1]))
+        # h: Heuristic distance to goal, 0 bc I'm lazy
+        self.h = 0
         # f: Function to minimize
         self.f = self.g + self.h
 
@@ -32,9 +54,6 @@ class Node():
         self.parent = parent
         self.g = parent.g + 1
         self.f = self.g + self.h
-
-    # def key(node):
-    #     return node.f
 
     def __lt__(self, other):
         return self.f < other.f
@@ -46,22 +65,19 @@ class Node():
         return hash(self.val)
 
     def __repr__(self):
-        return "(" + str(self.val[0]) + ", "+str(self.val[1]) + ")"
+        return self.val
 
-def generate_children(state, board, goalval):
-    val = state.val
-    n = (val[0]+1, val[1])
-    s = (val[0]-1, val[1])
-    e = (val[0], val[1]+1)
-    w = (val[0], val[1]-1)
-    valList = [n, s, e, w]
-
+def generate_children(parent, val_bag, end):
     children = []
-    for val in valList:
-        # If out, quit
-        if val[0] >= len(board) or val[0] < 0 or val[1] >= len(board[0]) or val[1] < 0:
-            continue 
-        children.append(Node(val, goalval, state))
+    for val in val_bag:
+        count = 0
+        for i in range(len(val)):
+            if parent.val[i] != val[i]:
+                count += 1
+            if count > 1:
+                break
+        if count == 1:
+            children.append(Node(val, end, parent))
 
     return children
 
@@ -72,16 +88,12 @@ def a_star(world, start, end):
     open_heap = Heap()
 
     initial_state = Node(start, end)
-    cur_val = start
+    cur_pos = start
 
     open_set.add(initial_state)
     open_heap.heappush(initial_state)
-    for i in range(len(world)):
-        for j in range(len(world[0])):
-            if world[i][j]:
-                closed_set.add((i, j))
 
-    while end != cur_val:
+    while end != cur_pos:
         S = open_heap.heappop()
         open_set.remove(S)
         children = generate_children(S, world, end)
@@ -101,18 +113,13 @@ def a_star(world, start, end):
 
         # Add S to closed list
         closed_set.add(S.val)
-        cur_val = S.val
+        cur_pos = S.val
     return S
 
-f = False
-t = True
-board = [[f, f, f, f], [t, t, f, t], [f, f, f, f], [f, f, f, f], [f, f, f, f]]
-for row in board:
-    print(row)
-
-start = (0,3)
-end = (4,0)
-S = a_star(board, start, end)
+dictionary = {"dot", "dop", "dat", "cat"}
+start = "dog"
+end = "cat"
+S = a_star(dictionary, start, end)
 
 while S.val != start:
     print(S)

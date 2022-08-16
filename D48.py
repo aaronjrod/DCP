@@ -8,55 +8,41 @@ class Node:
     def __repr__(self):
         return self.data
 
-class BinaryTree:
-    def __init__(self, root):
-        self.root = root
-    
-    def __init__(self):
-        self.root = None
-
-    def insert(self, data):
-        if self.root:
-            self.insertHelper(self.root, data)
+def reconstruct(pre_ord, in_ord):
+    if not pre_ord:
+        return
+    root = Node(pre_ord.pop(0))
+    node = root
+    stack = [node]
+    while pre_ord:
+        if stack[-1].data != in_ord[0]:
+            node.left = Node(pre_ord.pop(0))
+            node = node.left
         else:
-            self.root = Node(data)
-    
-    def insertHelper(self, parent, data):
-        if parent.data < data:
-            if parent.right:
-                self.insertHelper(parent.right, data)
-            else:
-                parent.right = Node(data)
-        else:
-            if parent.left:
-                self.insertHelper(parent.left, data)
-            else:
-                parent.left = Node(data)
-    
-    def preorder(self):
-        if self.root:
-            return self.root.data + self.preorderHelper(self.root.left) + self.preorderHelper(self.root.right)
+            while stack and stack[-1].data == in_ord[0]:
+                node = stack.pop()
+                in_ord.pop(0)
+            node.right = Node(pre_ord.pop(0))
+            node = node.right
+        stack.append(node)
+    return root
+
+def pre_order(node):
+    if not node:
         return ""
-    
-    def preorderHelper(self, parent):
-        if parent:
-            return str(parent.data) + self.preorderHelper(parent.left) + self.preorderHelper(parent.right)
+    return node.data + pre_order(node.left) + pre_order(node.right) 
+
+def in_order(node):
+    if not node:
         return ""
+    return in_order(node.left) + node.data + in_order(node.right) 
 
-def reconstructPre(arr):
-    root = arr[0]
-    
-    for i in range(1,len(arr)):
-        if arr[i] < root.data:
-            print()
+input_list = [(['a', 'b', 'd', 'e', 'c', 'f', 'g'], ['d', 'b', 'e', 'a', 'f', 'c', 'g']),
+                (['a', 'b', 'd', 'c'], ['d', 'b', 'a', 'c'])]
 
-def reconstructPreHelper(val):
-    print()
-
-pre = ['a', 'b', 'd', 'e', 'c', 'f', 'g']
-post = ['d', 'b', 'e', 'a', 'f', 'c', 'g']
-tree = BinaryTree()
-for item in post:
-    tree.insert(item)
-
-print(tree.preorder())
+for i in input_list:
+    pre_order_val = ''.join(i[0])
+    in_order_val = ''.join(i[1])
+    root = reconstruct(i[0], i[1])
+    print(pre_order(root) == pre_order_val)
+    print(in_order(root) == in_order_val)

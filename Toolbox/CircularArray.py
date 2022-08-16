@@ -1,6 +1,6 @@
 class CircularArray:
     def __init__(self, size) -> None:
-        self.arr = [0 for x in range(size)]
+        self.arr = [None for x in range(size)]
         self.size = size
         self.ptr = 0
 

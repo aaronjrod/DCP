@@ -1,36 +1,31 @@
 
-def isOpening(char):
-    if char in ["(","{","["]:
-        return True
-    return False
+def is_opening(char):
+    return char in ["(","{","["]
 
-def isMatching(charO,charC):
+def is_matching(charO,charC):
     if charO == "(" and charC == ")":
         return True
-    elif charO == "[" and charC == "]":
+    if charO == "[" and charC == "]":
         return True
-    elif charO == "{" and charC == "}":
+    if charO == "{" and charC == "}":
         return True
     return False
 
 def isValid(str):
-    openList = []
+    # Treating open_list like a stack
+    open_list = []
     while len(str) > 0:
-        if isOpening(str[0:1]):
-            openList.append(str[0:1])
+        if is_opening(str[0]):
+            open_list.append(str[0])
         else:
-            if not isMatching(openList.pop(), str[0:1]):
+            if not is_matching(open_list.pop(), str[0]):
                 return False
         str = str[1:]
 
-    if len(openList) > 0:
+    if len(open_list) > 0:
         return False
 
     return True
-
-#print(isOpening("{"))
-#print(isOpening("}"))
-
 
 sL = ["[][][][]","[{}]","([])[]({})","([)]","((()","[{]}"]
 for str in sL:

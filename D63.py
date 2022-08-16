@@ -1,6 +1,3 @@
-from sympy import true
-
-
 matrix = [['F', 'A', 'C', 'I'],
           ['O', 'B', 'Q', 'P'],
           ['A', 'N', 'O', 'B'],

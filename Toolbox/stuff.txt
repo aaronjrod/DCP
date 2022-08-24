@@ -10,7 +10,7 @@ Encapsulation, OOP:
 - Instance variables and methods can be added, deleted, or changed, but as long as the services provided by the object remain the same
     code that uses the object can continue to use it without being rewritten. See also instance variable, instance method.
 
-Inhertiance, OOP:
+Inheritance, OOP:
 Enables you to create new classes that reuse, extend, and modify the behavior defined in other classes. 
 The class whose members are inherited is called the base class, and the class that inherits those members is called the derived class.
 A derived class can have only one direct base class. However, inheritance is transitive.
@@ -29,6 +29,9 @@ Stable sort:
 - Sort equal elements in the same order that they appear in the input.
 - Stability is important to preserve order over multiple sorts on the same data set. 
 - Ex. Merge sort (also parallelizable), insertion sort
+
+Big O
+Master Method, find time complexity for recursive algorithms
 
 Comparison sort proof? Cannot be better than O(n*log(n))
 
